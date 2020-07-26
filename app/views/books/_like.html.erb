@@ -1,15 +1,14 @@
+
+<td id="favorite_<%= book.id %>">
 <% if book.favorited_by?(current_user) %>
-    <td>
-        <%= link_to book_favorites_path(book), method: :delete, remote: true do %>
-            <i><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
-            <%= book.favorites.count %>いいね
-        <% end %>
-      </td>
+    <%= link_to(book_add_path(book), method: :delete, remote: true, id: :"like-button-#{book.id}") do %>    
+        <i><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
+        <%= book.favorites.count %>いいね
+    <% end %>
 <% else %>
-    <td>
-        <%= link_to book_favorites_path(book), method: :post, remote: true do %>
-            <i><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
-            <%= book.favorites.count %>いいね
-        <% end %>
-    </td>
+    <%= link_to(book_add_path(book), method: :post, remote: true, id: :"like-button-#{book.id}") do %>
+        <i><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
+        <%= book.favorites.count %>いいね
+    <% end %>
 <% end %>
+</td>

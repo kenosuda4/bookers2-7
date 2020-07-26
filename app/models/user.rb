@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorites_books, through: :favorites, source: :menu
   has_many :book_comments, dependent: :destroy
  #ここからフォロー関係
  has_many :relationships
