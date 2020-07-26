@@ -1,0 +1,27 @@
+<!-- コメント表示 -->  
+    <% book.book_comments.each do |book_comment| %>
+       <table>
+          <tr>
+              <td>
+                <%= attachment_image_tag book_comment.user, :profile_image, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg", size: "60x60" %>
+              </td>
+              <td>
+               <a href="#" class="link-author">
+                  <%= book_comment.user.name %>
+                </a>
+              </td>
+              <td>
+                  <%= book_comment.created_at.strftime('%Y/%m/%d') %>
+              </td>
+              <td>
+                <%= book_comment.comment %>
+              </td>
+              <% if book_comment.user == current_user %>
+                  <td>
+                    <%= link_to "Delete", book_book_comments_path(book_comment),method: :delete, class: "btn btn-danger" %>
+                  </td>
+              <% end %>
+            <tr>
+            </table>
+         <% end %>
+<!-- コメント表示ここまで -->

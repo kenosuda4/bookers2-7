@@ -36,21 +36,7 @@
                 <%= @book.body %>
             </td>
             <!-- favo -->
-            <% if @book.favorited_by?(current_user) %>
-            <td>
-            <%= link_to book_favorites_path(@book), method: :delete do %>
-              <i><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
-              <%= @book.favorites.count %>いいね
-              <% end %>
-            </td>
-            <% else %>
-            <td>
-              <%= link_to book_favorites_path(@book),method: :post do %>
-              <i><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
-              <%= @book.favorites.count %>　いいね
-              <% end %>
-            </td>
-            <% end %>
+              <%= render 'books/like', book: @book %>
             <!-- favoここまで -->
             <td>
             コメント<%= @book.book_comments.count %>件
@@ -67,32 +53,7 @@
          
          </table>
          <!-- コメント表示 -->  
-
-         <% @book.book_comments.each do |book_comment| %>
-           <table>
-              <tr>
-                  <td>
-                    <%= attachment_image_tag @user_id, :profile_image_id, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg", size: "60x60" %>
-                  </td>
-                  <td>
-                   <a href="#" class="link-author">
-                      <%= book_comment.user.name %>
-                   </a>
-                  </td>
-                  <td>
-                  <%= book_comment.created_at.strftime('%Y/%m/%d') %>
-                  </td>
-                  <td>
-                    <%= book_comment.comment %>
-                  </td>
-              <% if book_comment.user == current_user %>
-                  <td>
-                  <%= link_to "Delete", book_book_comments_path(book_comment),method: :delete, class: "btn btn-danger" %>
-                  </td>
-              <% end %>
-            <tr>
-            </table>
-         <% end %>
+          <%= render 'books/book_comments', book: @book %>
          <!-- コメント表示ここまで -->
 
          <!-- コメント投稿フォーム -->
