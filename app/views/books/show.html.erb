@@ -14,7 +14,7 @@
       <div class="col-xs-9">
          <h2>Book detail</h2>
          <table class="table table-striped">
-         　<tr>
+          <tr>
             <thead>
                 <th></th>
 
@@ -45,19 +45,22 @@
             <td>
               <%= link_to "Edit", edit_book_path(@book.id), class: "edit_book_#{@book.id} btn btn-success btn-sm btn_txt_color" %>
               <%= link_to "Destroy", book_path(@book.id), method: :delete,  "data-confirm" => "本当に削除しますか？"  ,class:"btn-sm btn-danger destroy_book_10349"%>
-          　 </td>
+            </td>
             <% else %>
             <td></td>
             <% end %>
-         　</tr>
+          </tr>
          
          </table>
          <!-- コメント表示 -->  
+         <div id="comment_area">
           <%= render 'books/book_comments', book: @book %>
+         </div>
          <!-- コメント表示ここまで -->
 
          <!-- コメント投稿フォーム -->
-         <%= form_for [@book, @book_comment] do |f| %>
+         <!-- %= form_with(model:[post,comment]) do |form| % 参考にした記事のこれだとsyntax error -->
+         <%= form_with model:[@book, @book_comment] do |f| %>
             <div class="row">
               <div class="col-sm-12">
                <%= f.text_area :comment,rows:'5', class: "form-control",placeholder: "コメントをここに" %>
