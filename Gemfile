@@ -71,3 +71,5 @@ gem "refile-mini_magick"
 # 応用課題7
 gem 'jp_prefecture'
 
+gem "dotenv-rails"
+
