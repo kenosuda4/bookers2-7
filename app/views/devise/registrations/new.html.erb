@@ -9,6 +9,33 @@
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
+  <!-- 住所関連 -->
+  <div class="field">
+    <%= f.label :postal_code %><br />
+    <%= f.text_field :postal_code, autofocus: true, autocomplete: "postal_code" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :prefecture_code%><br />
+    <%= f.text_field :prefecture_code, collection: JpPrefecture::Prefecture.all, :value_method => :name, include_blank: '都道府県' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address_city %><br />
+    <%= f.text_field :address_city, autofocus: true, autocomplete: "address_city" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address_street %><br />
+    <%= f.text_field :address_street, autofocus: true, autocomplete: "address_street" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address_building %><br />
+    <%= f.text_field :address_building, autofocus: true, autocomplete: "address_building" %>
+  </div>
+
+  <!-- 住所関連　ここまで -->
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
