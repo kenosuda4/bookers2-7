@@ -14,7 +14,7 @@
       <div class="col-xs-9">
          <h2>Book detail</h2>
          <table class="table table-striped">
-         　<tr>
+          <tr>
             <thead>
                 <th></th>
 
@@ -36,21 +36,7 @@
                 <%= @book.body %>
             </td>
             <!-- favo -->
-            <% if @book.favorited_by?(current_user) %>
-            <td>
-            <%= link_to book_favorites_path(@book), method: :delete do %>
-              <i><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
-              <%= @book.favorites.count %>いいね
-              <% end %>
-            </td>
-            <% else %>
-            <td>
-              <%= link_to book_favorites_path(@book),method: :post do %>
-              <i><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></i>
-              <%= @book.favorites.count %>　いいね
-              <% end %>
-            </td>
-            <% end %>
+              <%= render 'books/like', book: @book %>
             <!-- favoここまで -->
             <td>
             コメント<%= @book.book_comments.count %>件
@@ -59,44 +45,22 @@
             <td>
               <%= link_to "Edit", edit_book_path(@book.id), class: "edit_book_#{@book.id} btn btn-success btn-sm btn_txt_color" %>
               <%= link_to "Destroy", book_path(@book.id), method: :delete,  "data-confirm" => "本当に削除しますか？"  ,class:"btn-sm btn-danger destroy_book_10349"%>
-          　 </td>
+            </td>
             <% else %>
             <td></td>
             <% end %>
-         　</tr>
+          </tr>
          
          </table>
          <!-- コメント表示 -->  
-
-         <% @book.book_comments.each do |book_comment| %>
-           <table>
-              <tr>
-                  <td>
-                    <%= attachment_image_tag @user_id, :profile_image_id, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg", size: "60x60" %>
-                  </td>
-                  <td>
-                   <a href="#" class="link-author">
-                      <%= book_comment.user.name %>
-                   </a>
-                  </td>
-                  <td>
-                  <%= book_comment.created_at.strftime('%Y/%m/%d') %>
-                  </td>
-                  <td>
-                    <%= book_comment.comment %>
-                  </td>
-              <% if book_comment.user == current_user %>
-                  <td>
-                  <%= link_to "Delete", book_book_comments_path(book_comment),method: :delete, class: "btn btn-danger" %>
-                  </td>
-              <% end %>
-            <tr>
-            </table>
-         <% end %>
+         <div id="comment_area">
+          <%= render 'books/book_comments', book: @book %>
+         </div>
          <!-- コメント表示ここまで -->
 
          <!-- コメント投稿フォーム -->
-         <%= form_for [@book, @book_comment] do |f| %>
+         <!-- %= form_with(model:[post,comment]) do |form| % 参考にした記事のこれだとsyntax error -->
+         <%= form_with model:[@book, @book_comment] do |f| %>
             <div class="row">
               <div class="col-sm-12">
                <%= f.text_area :comment,rows:'5', class: "form-control",placeholder: "コメントをここに" %>
