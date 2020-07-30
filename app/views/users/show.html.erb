@@ -4,6 +4,11 @@
   <%= render 'books/userinfo', book: @book, user: @user %>
     <%= render 'books/side', book: @book, user: @user %>
     <%= render 'relationships/follow', book: @book, user: @user  %>
+    
+    <h2>gmap</h2>
+      <!-- <div id='map'></div> -->
+      <!-- geocoderを使わない方法 -->
+      <iframe src="https://maps.google.co.jp/maps?output=embed&q=<%=current_user.full_address%>&z=16" width="100%" height="400" frameborder="0" scrolling="no" ></iframe>
   </div>
     <% if flash[:notice] %>
       <div class="flash">
@@ -43,3 +48,38 @@
 
 </div>
 </div>
+
+
+
+
+
+ 
+
+<style>
+#map {
+  height: 600px;
+  width: 100%;
+}
+</style>
+
+<script>
+   let map
+   let geocoder
+   // 下の1行を追加
+   const display = document.getElementById('display')
+
+   function initMap(){
+      geocoder = new google.maps.Geocoder()
+
+      map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 40.7828, lng:-73.9653},
+      zoom: 12,
+  });
+
+  marker = new google.maps.Marker({
+    position:  {lat: 40.7828, lng:-73.9653},
+    map: map
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KYE'] %>&callback=initMap" async defer></script>

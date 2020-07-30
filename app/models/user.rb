@@ -27,6 +27,17 @@ class User < ApplicationRecord
   end
   #ここまで
 
+  #map ここから
+  # 住所の prefecture_code(県)city(市区町村)street(番地)building(建物名)を足す。
+  
+  def full_address
+    full_address = [prefecture_name, address_city, address_street, address_building].join(" ")
+    
+    # prefecture_name + address_city + address_street + address_building これだと+がnil classになる
+    
+  end
+
+
  
   def follow(other_user)
     unless self == other_user
